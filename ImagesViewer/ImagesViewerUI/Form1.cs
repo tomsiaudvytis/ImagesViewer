@@ -10,15 +10,16 @@ namespace ImagesViewerUI
 {
     public partial class ImgViewerForm : Form
     {
-        private IEnumerable<Picture> picture = new List<Picture>();
-        Image Image = new Image();
-        CustomImageConverter converter = new CustomImageConverter();
+        private IEnumerable<ImageModel> _picture = new List<ImageModel>();
+        private Image _image = new Image();
+        private CustomImageConverter _converter = new CustomImageConverter();
 
         public ImgViewerForm()
         {
             InitializeComponent();
-            picture = Image.GetAllImages();
-            dataGridPictures.DataSource = picture;
+
+            _picture = _image.GetAllImages();
+            dataGridPictures.DataSource = _picture;
             dataGridPictures.Columns[0].Visible = false;
             dataGridPictures.Columns[4].Visible = false;
         }
@@ -30,34 +31,34 @@ namespace ImagesViewerUI
                 MessageBox.Show("Enter picture name!");
             }
 
-            picture = Image.SearchImages(txtBoxSearchName.Text);
-            dataGridPictures.DataSource = picture;
+            _picture = _image.SearchImages(txtBoxSearchName.Text);
+            dataGridPictures.DataSource = _picture;
         }
 
-        private void btnUpload_Click(object sender, EventArgs e)
+        private void BtnUpload_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Filter = "Files|*.jpg;*.jpeg;*.png;",
-                Multiselect = false
+                Multiselect = false,
             };
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                string path = dialog.FileName;
+                string imgPath = dialog.FileName;
 
-                byte[] imgBytes = converter.ImgToBytes(path);
+                byte[] imgToUploadInBytes = _converter.ImgToBytes(imgPath);
 
-                Picture uploadPicture = new Picture()
+                ImageModel imageToUpload = new ImageModel()
                 {
-                    PictureContent = string.Join(" ", imgBytes),
+                    PictureContent = string.Join(" ", imgToUploadInBytes),
                     PictureID = Guid.NewGuid().ToString(),
                     PictureName = dialog.SafeFileName,
-                    Size = imgBytes.Length
+                    Size = imgToUploadInBytes.Length
                 };
 
-                Image.UploadImage(uploadPicture);
-                MessageBox.Show(uploadPicture.PictureName + " Uploaded");
+                _image.UploadImage(imageToUpload);
+                MessageBox.Show(imageToUpload.PictureName + " Uploaded");
                 InitializeComponent();
             }
         }
@@ -69,17 +70,16 @@ namespace ImagesViewerUI
                 if (dataGridPictures.CurrentRow.Index != -1)
                 {
                     string pictureID = dataGridPictures.CurrentRow.Cells[0].Value.ToString();
-                    picture = Image.GetImage(pictureID);
+                    _picture = _image.GetImage(pictureID);
 
-                    string[] currentImgAsStringArr = picture.First().PictureContent.Split(' ');
+                    string[] currentImgAsStringArr = _picture.First().PictureContent.Split(' ');
                     byte[] currentImbAsBytesArr = currentImgAsStringArr.Select(byte.Parse).ToArray();
 
-                    System.Drawing.Image selectedImage = converter.BytesToImage(currentImbAsBytesArr);
+                    System.Drawing.Image selectedImage = _converter.BytesToImage(currentImbAsBytesArr);
 
                     picBox.Image = selectedImage;
                     picBox.Height = selectedImage.Height;
                     picBox.Width = selectedImage.Width;
-
                 }
             }
             catch (Exception ex)

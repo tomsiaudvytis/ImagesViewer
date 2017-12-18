@@ -2,7 +2,7 @@
 
 namespace DataAccess.Models
 {
-    public class Picture
+    public class ImageModel
     {
         public string PictureID { get; set; }
         public string PictureName { get; set; }

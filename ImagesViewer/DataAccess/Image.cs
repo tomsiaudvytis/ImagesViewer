@@ -9,37 +9,37 @@ namespace DataAccess
 {
     public class Image : IImageRepository
     {
-        public IEnumerable<Picture> GetAllImages()
+        public IEnumerable<ImageModel> GetAllImages()
         {
             string sqlQuery = $"SELECT * FROM dbo.StorePictures";
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
-                return connection.Query<Picture>(sqlQuery);
+                return connection.Query<ImageModel>(sqlQuery);
             }
         }
 
-        public IEnumerable<Picture> GetImage(string imageID)
+        public IEnumerable<ImageModel> GetImage(string imageID)
         {
             string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureID = '{imageID}'";
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
-                return connection.Query<Picture>(sqlQuery);
+                return connection.Query<ImageModel>(sqlQuery);
             }
         }
 
-        public IEnumerable<Picture> SearchImages(string name)
+        public IEnumerable<ImageModel> SearchImages(string name)
         {
             string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureName LIKE '%{name}%'";
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
-                return connection.Query<Picture>(sqlQuery);
+                return connection.Query<ImageModel>(sqlQuery);
             }
         }
 
-        public void UploadImage(Picture p)
+        public void UploadImage(ImageModel p)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
@@ -48,7 +48,7 @@ namespace DataAccess
                 sb.Append("INSERT INTO dbo.StorePictures (PictureID,PictureName, Size, UploadDate ,PictureContent) VALUES (");
                 sb.Append($"'{p.PictureID}', '{p.PictureName}', '{p.Size}', '{p.UploadDate}', '{p.PictureContent}' )");
 
-                connection.Query<Picture>(sb.ToString());
+                connection.Query<ImageModel>(sb.ToString());
             }
         }
     }

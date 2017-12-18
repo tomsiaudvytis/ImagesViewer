@@ -73,7 +73,7 @@
             this.btnUpload.TabIndex = 3;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            this.btnUpload.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // dataGridPictures
             // 
