@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{7CE08875-77F5-4685-8DFD-B37E077D67D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImagesViewerUI", "ImagesViewerUI\ImagesViewerUI.csproj", "{FF79FA7D-F74C-444A-B8CE-D3D0E4E77A70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CE08875-77F5-4685-8DFD-B37E077D67D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CE08875-77F5-4685-8DFD-B37E077D67D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CE08875-77F5-4685-8DFD-B37E077D67D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CE08875-77F5-4685-8DFD-B37E077D67D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF79FA7D-F74C-444A-B8CE-D3D0E4E77A70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF79FA7D-F74C-444A-B8CE-D3D0E4E77A70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF79FA7D-F74C-444A-B8CE-D3D0E4E77A70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF79FA7D-F74C-444A-B8CE-D3D0E4E77A70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0870E21-E285-4AED-B88C-9A2F1F2E2988}
+	EndGlobalSection
+EndGlobal
