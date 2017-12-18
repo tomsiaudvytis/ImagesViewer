@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtBoxSearchName = new System.Windows.Forms.TextBox();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +52,7 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // txtBoxSearchName
             // 
@@ -60,16 +61,27 @@
             this.txtBoxSearchName.Size = new System.Drawing.Size(100, 20);
             this.txtBoxSearchName.TabIndex = 2;
             // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(16, 291);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(75, 23);
+            this.btnUpload.TabIndex = 3;
+            this.btnUpload.Text = "Upload";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 340);
+            this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.txtBoxSearchName);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Images viewer";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -80,6 +92,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtBoxSearchName;
+        private System.Windows.Forms.Button btnUpload;
     }
 }
 

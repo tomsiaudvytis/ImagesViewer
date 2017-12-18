@@ -83,6 +83,10 @@
       <Project>{7CE08875-77F5-4685-8DFD-B37E077D67D7}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImagesConverter\ImagesConverter.csproj">
+      <Project>{1f66e1e6-cdab-4eed-adf5-51633a9dca45}</Project>
+      <Name>ImagesConverter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
