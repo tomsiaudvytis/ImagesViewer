@@ -1,6 +1,6 @@
 ﻿namespace ImagesViewerUI
 {
-    partial class Form1
+    partial class ImgViewerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,9 @@
             this.txtBoxSearchName = new System.Windows.Forms.TextBox();
             this.btnUpload = new System.Windows.Forms.Button();
             this.dataGridPictures = new System.Windows.Forms.DataGridView();
+            this.picBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPictures)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -47,7 +49,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(215, 10);
+            this.btnSearch.Location = new System.Drawing.Point(205, 10);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 1;
@@ -58,14 +60,14 @@
             // 
             // txtBoxSearchName
             // 
-            this.txtBoxSearchName.Location = new System.Drawing.Point(88, 10);
+            this.txtBoxSearchName.Location = new System.Drawing.Point(88, 13);
             this.txtBoxSearchName.Name = "txtBoxSearchName";
             this.txtBoxSearchName.Size = new System.Drawing.Size(100, 20);
             this.txtBoxSearchName.TabIndex = 2;
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(16, 291);
+            this.btnUpload.Location = new System.Drawing.Point(16, 391);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(75, 23);
             this.btnUpload.TabIndex = 3;
@@ -77,22 +79,34 @@
             // 
             this.dataGridPictures.Location = new System.Drawing.Point(16, 50);
             this.dataGridPictures.Name = "dataGridPictures";
-            this.dataGridPictures.Size = new System.Drawing.Size(240, 150);
+            this.dataGridPictures.ReadOnly = true;
+            this.dataGridPictures.Size = new System.Drawing.Size(351, 168);
             this.dataGridPictures.TabIndex = 0;
+            this.dataGridPictures.DoubleClick += new System.EventHandler(this.dataGridPictures_DoubleClick);
             // 
-            // Form1
+            // picBox
+            // 
+            this.picBox.Location = new System.Drawing.Point(436, 50);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(290, 308);
+            this.picBox.TabIndex = 4;
+            this.picBox.TabStop = false;
+            // 
+            // ImgViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 340);
+            this.ClientSize = new System.Drawing.Size(762, 426);
+            this.Controls.Add(this.picBox);
             this.Controls.Add(this.dataGridPictures);
             this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.txtBoxSearchName);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "ImgViewerForm";
             this.Text = "Images viewer";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPictures)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,6 +119,7 @@
         private System.Windows.Forms.TextBox txtBoxSearchName;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.DataGridView dataGridPictures;
+        private System.Windows.Forms.PictureBox picBox;
     }
 }
 

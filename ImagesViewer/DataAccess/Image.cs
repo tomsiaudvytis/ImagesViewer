@@ -9,13 +9,9 @@ namespace DataAccess
 {
     public class Image : IImageRepository
     {
-        public IEnumerable<Picture> GetImages(string name)
+        public IEnumerable<Picture> GetAllImages()
         {
-            string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureName LIKE '%{name}%'";
-            if (string.IsNullOrEmpty(name))
-            {
-                sqlQuery = $"SELECT * FROM dbo.StorePictures";
-            }
+            string sqlQuery = $"SELECT * FROM dbo.StorePictures";
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
@@ -23,7 +19,27 @@ namespace DataAccess
             }
         }
 
-        public void UploadPicture(Picture p)
+        public IEnumerable<Picture> GetImage(string imageID)
+        {
+            string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureID = '{imageID}'";
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
+            {
+                return connection.Query<Picture>(sqlQuery);
+            }
+        }
+
+        public IEnumerable<Picture> SearchImages(string name)
+        {
+            string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureName LIKE '%{name}%'";
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
+            {
+                return connection.Query<Picture>(sqlQuery);
+            }
+        }
+
+        public void UploadImage(Picture p)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {

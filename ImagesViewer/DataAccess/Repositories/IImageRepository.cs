@@ -5,8 +5,12 @@ namespace DataAccess.Repositories
 {
     interface IImageRepository
     {
-        IEnumerable<Picture> GetImages(string name);
+        IEnumerable<Picture> SearchImages(string name);
 
-        void UploadPicture(Picture p);
+        void UploadImage(Picture p);
+
+        IEnumerable<Picture> GetAllImages();
+
+        IEnumerable<Picture> GetImage(string imageID);
     }
 }
