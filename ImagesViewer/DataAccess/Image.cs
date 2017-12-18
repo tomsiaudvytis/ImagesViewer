@@ -11,9 +11,15 @@ namespace DataAccess
     {
         public IEnumerable<Picture> GetImages(string name)
         {
+            string sqlQuery = $"SELECT * FROM dbo.StorePictures WHERE PictureName LIKE '%{name}%'";
+            if (string.IsNullOrEmpty(name))
+            {
+                sqlQuery = $"SELECT * FROM dbo.StorePictures";
+            }
+
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
             {
-                return connection.Query<Picture>($"SELECT * FROM dbo.StorePictures WHERE PictureName LIKE '%{name}%'");
+                return connection.Query<Picture>(sqlQuery);
             }
         }
 

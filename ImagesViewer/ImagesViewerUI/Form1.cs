@@ -21,6 +21,7 @@ namespace ImagesViewerUI
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             picture = Image.GetImages(txtBoxSearchName.Text);
+            dataGridPictures.DataSource = picture;
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -39,12 +40,13 @@ namespace ImagesViewerUI
 
                 Picture uploadPicture = new Picture()
                 {
-                    PictureContent = System.Text.Encoding.UTF8.GetString(imgBytes),
+                    PictureContent = string.Join(" ", imgBytes),
                     PictureID = Guid.NewGuid().ToString(),
-                    PictureName = "name"
+                    PictureName = dialog.SafeFileName
                 };
 
                 Image.UploadPicture(uploadPicture);
+                MessageBox.Show(uploadPicture.PictureName + " Uploaded");
 
             }
         }

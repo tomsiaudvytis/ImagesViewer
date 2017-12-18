@@ -32,6 +32,8 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtBoxSearchName = new System.Windows.Forms.TextBox();
             this.btnUpload = new System.Windows.Forms.Button();
+            this.dataGridPictures = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPictures)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,17 +73,26 @@
             this.btnUpload.UseVisualStyleBackColor = true;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
+            // dataGridPictures
+            // 
+            this.dataGridPictures.Location = new System.Drawing.Point(16, 50);
+            this.dataGridPictures.Name = "dataGridPictures";
+            this.dataGridPictures.Size = new System.Drawing.Size(240, 150);
+            this.dataGridPictures.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 340);
+            this.Controls.Add(this.dataGridPictures);
             this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.txtBoxSearchName);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Images viewer";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridPictures)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,6 +104,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtBoxSearchName;
         private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.DataGridView dataGridPictures;
     }
 }
 

@@ -5,17 +5,18 @@ namespace ImagesConverter
 {
     public class CustomImageConverter : IConvert
     {
-
         public Image BytesToImage(byte[] bytes)
         {
-            throw new System.NotImplementedException();
+            MemoryStream ms = new MemoryStream(bytes);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
         }
 
         public byte[] ImgToBytes(string path)
         {
-            System.Drawing.Image img = System.Drawing.Image.FromFile(path);
+            Image img = Image.FromFile(path);
             MemoryStream ms = new MemoryStream();
-            img.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+            img.Save(ms, img.RawFormat);
             return ms.ToArray();
         }
     }
