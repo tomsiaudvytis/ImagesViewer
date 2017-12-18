@@ -5,6 +5,8 @@
 *.suo
 *.user
 *.sln.docstates
+*db.lock
+db.lock
 
 # Build results
 
@@ -43,6 +45,7 @@ x64/
 *.log
 *.svclog
 *.scc
+*.lock
 
 # Visual C++ cache files
 ipch/
