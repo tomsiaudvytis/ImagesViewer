@@ -1,9 +1,12 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using DataAccess.Repositories;
 using ImagesConverter;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ImagesViewerUI
@@ -11,14 +14,14 @@ namespace ImagesViewerUI
     public partial class ImgViewerForm : Form
     {
         private IEnumerable<ImageModel> _picture = new List<ImageModel>();
-        private Image _image = new Image();
+        private IImageRepository _imageRepo = new ImageRepository();
         private CustomImageConverter _converter = new CustomImageConverter();
 
         public ImgViewerForm()
         {
             InitializeComponent();
 
-            _picture = _image.GetAllImages();
+            _picture = _imageRepo.GetAllImages();
             dataGridPictures.DataSource = _picture;
             dataGridPictures.Columns[0].Visible = false;
             dataGridPictures.Columns[4].Visible = false;
@@ -30,9 +33,20 @@ namespace ImagesViewerUI
             {
                 MessageBox.Show("Enter picture name!");
             }
+            else
+            {
+                Task taskSearch = Task.Factory.StartNew(() =>
+                {
+                    _picture = _imageRepo.SearchImages(txtBoxSearchName.Text);
+                });
 
-            _picture = _image.SearchImages(txtBoxSearchName.Text);
-            dataGridPictures.DataSource = _picture;
+                var awaiter = taskSearch.GetAwaiter();
+
+                awaiter.OnCompleted(() =>
+                {
+                    dataGridPictures.DataSource = _picture;
+                });
+            }
         }
 
         private void BtnUpload_Click(object sender, EventArgs e)
@@ -54,37 +68,55 @@ namespace ImagesViewerUI
                     PictureContent = string.Join(" ", imgToUploadInBytes),
                     PictureID = Guid.NewGuid().ToString(),
                     PictureName = dialog.SafeFileName,
-                    Size = imgToUploadInBytes.Length
+
+                    //Size ruffly in Megabytes
+                    Size = imgToUploadInBytes.Count() / 1000000
                 };
 
-                _image.UploadImage(imageToUpload);
-                MessageBox.Show(imageToUpload.PictureName + " Uploaded");
-                InitializeComponent();
+                Task task = Task.Factory.StartNew(() =>
+                {
+                    _imageRepo.UploadImage(imageToUpload);
+                });
+
+                var awaiter = task.GetAwaiter();
+
+                awaiter.OnCompleted(() =>
+                {
+                    MessageBox.Show(imageToUpload.PictureName + " Uploaded");
+                    InitializeComponent();
+                    _picture = _imageRepo.GetAllImages();
+                });
+
             }
         }
 
-        private void dataGridPictures_DoubleClick(object sender, EventArgs e)
+        private void DataGridPictures_DoubleClick(object sender, EventArgs e)
         {
-            try
+            if (dataGridPictures.CurrentRow.Index != -1)
             {
-                if (dataGridPictures.CurrentRow.Index != -1)
-                {
-                    string pictureID = dataGridPictures.CurrentRow.Cells[0].Value.ToString();
-                    _picture = _image.GetImage(pictureID);
+                Image selectedImage = null;
+                string pictureID = dataGridPictures.CurrentRow.Cells[0].Value.ToString();
 
+                Task task = Task.Factory.StartNew(() =>
+                {
+                    IEnumerable<ImageModel> _picture = _imageRepo.GetImage(pictureID);
                     string[] currentImgAsStringArr = _picture.First().PictureContent.Split(' ');
                     byte[] currentImbAsBytesArr = currentImgAsStringArr.Select(byte.Parse).ToArray();
+                    selectedImage = _converter.BytesToImage(currentImbAsBytesArr);
+                });
 
-                    System.Drawing.Image selectedImage = _converter.BytesToImage(currentImbAsBytesArr);
+                var awaiter = task.GetAwaiter();
 
-                    picBox.Image = selectedImage;
-                    picBox.Height = selectedImage.Height;
-                    picBox.Width = selectedImage.Width;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                awaiter.OnCompleted(() =>
+                {
+                    if (selectedImage != null)
+                    {
+                        picBox.Image = selectedImage;
+                        picBox.Height = selectedImage.Height;
+                        picBox.Width = selectedImage.Width;
+                    }
+
+                });
             }
         }
     }

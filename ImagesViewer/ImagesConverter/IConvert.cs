@@ -1,9 +1,11 @@
-﻿namespace ImagesConverter
+﻿using System.Drawing;
+
+namespace ImagesConverter
 {
     interface IConvert
     {
         byte[] ImgToBytes(string path);
 
-        System.Drawing.Image BytesToImage(byte[] bytes);
+        Image BytesToImage(byte[] bytes);
     }
 }

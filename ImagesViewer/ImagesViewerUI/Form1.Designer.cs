@@ -80,15 +80,15 @@
             this.dataGridPictures.Location = new System.Drawing.Point(16, 50);
             this.dataGridPictures.Name = "dataGridPictures";
             this.dataGridPictures.ReadOnly = true;
-            this.dataGridPictures.Size = new System.Drawing.Size(351, 168);
+            this.dataGridPictures.Size = new System.Drawing.Size(396, 168);
             this.dataGridPictures.TabIndex = 0;
-            this.dataGridPictures.DoubleClick += new System.EventHandler(this.dataGridPictures_DoubleClick);
+            this.dataGridPictures.DoubleClick += new System.EventHandler(this.DataGridPictures_DoubleClick);
             // 
             // picBox
             // 
             this.picBox.Location = new System.Drawing.Point(436, 50);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(290, 308);
+            this.picBox.Size = new System.Drawing.Size(630, 308);
             this.picBox.TabIndex = 4;
             this.picBox.TabStop = false;
             // 
@@ -96,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 426);
+            this.ClientSize = new System.Drawing.Size(1132, 418);
             this.Controls.Add(this.picBox);
             this.Controls.Add(this.dataGridPictures);
             this.Controls.Add(this.btnUpload);

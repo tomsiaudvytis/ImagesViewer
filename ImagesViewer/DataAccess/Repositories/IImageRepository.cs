@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Repositories
 {
-    interface IImageRepository
+    public interface IImageRepository
     {
         IEnumerable<ImageModel> SearchImages(string name);
 

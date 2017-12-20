@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess
 {
-    public class Image : IImageRepository
+    public class ImageRepository : IImageRepository
     {
         public IEnumerable<ImageModel> GetAllImages()
         {
