@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess
 {
-    public class ImageRepository : IImageRepository
+    public class MsSQLImageRepository : IImageRepository
     {
         public void DeleteImage(string imageID)
         {
@@ -54,8 +54,10 @@ namespace DataAccess
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.Append("INSERT INTO dbo.StorePictures (PictureID,PictureName, Size, UploadDate ,PictureContent) VALUES (");
-                sb.Append($"'{p.PictureID}', '{p.PictureName}', '{p.Size}', '{p.UploadDate}', '{p.PictureContent}' )");
+                sb.Append("INSERT INTO dbo.StorePictures (PictureID,PictureName, Size, UploadDate ,PictureContent) VALUES");
+                sb.Append("(");
+                sb.Append($"'{p.PictureID}', '{p.PictureName}', '{p.Size}', '{p.UploadDate}', '{p.PictureContent}' ");
+                sb.Append(")");
 
                 connection.Query<ImageModel>(sb.ToString());
             }

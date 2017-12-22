@@ -13,7 +13,7 @@ namespace ImagesViewerWeb.Controllers
     public class HomeController : Controller
     {
         private IConvert _imageConverter = new CustomImageConverter();
-        private IImageRepository _imageRepo = new ImageRepository();
+        private IImageRepository _imageRepo = new MsSQLImageRepository();
         IEnumerable<ImageModel> _images = null;
 
         public HomeController()

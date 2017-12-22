@@ -14,7 +14,7 @@ namespace ImagesViewerUI
     public partial class ImgViewerForm : Form
     {
         private IEnumerable<ImageModel> _picture = new List<ImageModel>();
-        private IImageRepository _imageRepo = new ImageRepository();
+        private IImageRepository _imageRepo = new MsSQLImageRepository();
         private CustomImageConverter _converter = new CustomImageConverter();
 
         public ImgViewerForm()

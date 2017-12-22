@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Web;
-using System.Drawing;
 
 namespace DataAccess.Models
 {

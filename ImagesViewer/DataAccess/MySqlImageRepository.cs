@@ -2,13 +2,10 @@
 using DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    class MySqlImageRepository : IImageRepository
+    class MySQLImageRepository : IImageRepository
     {
         public void DeleteImage(string imageID)
         {
