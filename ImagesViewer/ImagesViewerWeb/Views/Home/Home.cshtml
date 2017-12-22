@@ -7,41 +7,11 @@
 <h2>Home_</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <div id="theAdd">
+        @Html.Partial("_add", new DataAccess.Models.ImageModel())
+    </div>
 </p>
-<table class="table">
-    <tr>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.PictureName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UploadDate)
-        </th>
-       
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PictureName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Size)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UploadDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
-
-</table>
+<div id="theTable">
+    @Html.Partial("_table", Model)
+</div>

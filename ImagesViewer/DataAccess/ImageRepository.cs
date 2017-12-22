@@ -9,6 +9,15 @@ namespace DataAccess
 {
     public class ImageRepository : IImageRepository
     {
+        public void DeleteImage(string imageID)
+        {
+            string sqlQuery = $"DELETE FROM dbo.StorePictures WHERE PictureID = '{imageID}'";
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("PicturesDb")))
+            {
+                connection.Query<ImageModel>(sqlQuery);
+            }
+        }
+
         public IEnumerable<ImageModel> GetAllImages()
         {
             string sqlQuery = $"SELECT * FROM dbo.StorePictures";

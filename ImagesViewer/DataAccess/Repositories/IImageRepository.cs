@@ -7,10 +7,12 @@ namespace DataAccess.Repositories
     {
         IEnumerable<ImageModel> SearchImages(string name);
 
-        void UploadImage(ImageModel p);
+        void UploadImage(ImageModel image);
 
         IEnumerable<ImageModel> GetAllImages();
 
         IEnumerable<ImageModel> GetImage(string imageID);
+
+        void DeleteImage(string imageID);
     }
 }

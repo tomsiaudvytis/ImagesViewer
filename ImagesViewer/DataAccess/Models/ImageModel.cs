@@ -1,4 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Web;
+using System.Drawing;
 
 namespace DataAccess.Models
 {
@@ -9,5 +12,7 @@ namespace DataAccess.Models
         public int Size { get; set; }
         public string UploadDate { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
         public string PictureContent { get; set; }
+        public string ImagePath { get; set; }
+        public HttpPostedFileBase File { get; set; }
     }
 }

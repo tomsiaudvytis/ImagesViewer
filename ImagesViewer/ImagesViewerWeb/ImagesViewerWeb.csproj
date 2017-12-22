@@ -185,6 +185,9 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\_table.cshtml" />
+    <Content Include="Views\Home\_add.cshtml" />
+    <Content Include="Views\Home\_selected.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -207,6 +210,10 @@
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{7ce08875-77f5-4685-8dfd-b37e077d67d7}</Project>
       <Name>DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImagesConverter\ImagesConverter.csproj">
+      <Project>{1f66e1e6-cdab-4eed-adf5-51633a9dca45}</Project>
+      <Name>ImagesConverter</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

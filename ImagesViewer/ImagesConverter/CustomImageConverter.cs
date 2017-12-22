@@ -12,6 +12,18 @@ namespace ImagesConverter
             return returnImage;
         }
 
+        public byte[] FileBaseToBytes(Stream stream)
+        {
+            byte[] content;
+
+            using (var reader = new BinaryReader(stream))
+            {
+                content = reader.ReadBytes((int)stream.Length);
+            }
+
+            return content;
+        }
+
         public byte[] ImgToBytes(string path)
         {
             Image img = Image.FromFile(path);

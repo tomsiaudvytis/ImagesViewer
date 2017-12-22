@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DataAccess.Models.ImageModel>
+
+
+@{
+    ViewBag.Title = "_table";
+}
+
+<table class="imagesTable">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PictureName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Size)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PictureName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadDate)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { ID = item.PictureID })
+                @Html.ActionLink("Select", "Select", new { ID = item.PictureID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="_selected">
+    @if (ViewBag.ImageData != null)
+    {
+        Html.RenderPartial("_selected", Model);
+    }
+</div>

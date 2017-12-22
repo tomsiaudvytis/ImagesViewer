@@ -1,0 +1,26 @@
+﻿@model DataAccess.Models.ImageModel
+
+
+@{
+    using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div>
+            <label>Chose file to add</label>
+            <br />
+
+            @Html.TextBox("file", "", new { type = "file" }) <br />
+        </div>
+
+        <br />
+        <div>
+            @Html.EditorFor(model => model.PictureName)
+            <br />
+            @Html.ValidationMessageFor(model => model.PictureName, "", new { @class = "text-danger" })
+        </div>
+
+        <br />
+        <input type="submit" value="Add Image" />
+    }
+}
