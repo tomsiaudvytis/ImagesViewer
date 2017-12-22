@@ -30,27 +30,24 @@ namespace ImagesViewerWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(ImageModel image)
         {
-            List<string> okFormats = new List<string> { "image/jpeg", "image/gif", "image/png", "image/jpg", "image/tiff" };
-
             if (image.File != null && image.PictureName != null)
             {
-                bool isValidFormat = okFormats.Contains(image.File.ContentType.ToLower());
+                bool isValidFormat = IsFormatValid(image.File.ContentType);
 
                 if (!isValidFormat)
                 {
                     ModelState.AddModelError("", "Select valid image file");
+                    return View("Home", _images);
                 }
-                else
-                {
-                    byte[] content = _imageConverter.FileBaseToBytes(image.File.InputStream);
 
-                    image.PictureContent = string.Join(" ", content);
-                    image.PictureID = Guid.NewGuid().ToString();
-                    image.Size = (int)content.LongLength;
+                byte[] content = _imageConverter.FileBaseToBytes(image.File.InputStream);
 
-                    _imageRepo.UploadImage(image);
-                    _images = _imageRepo.GetAllImages();
-                }
+                image.PictureContent = string.Join(" ", content);
+                image.PictureID = Guid.NewGuid().ToString();
+                image.Size = (int)content.LongLength;
+
+                _imageRepo.UploadImage(image);
+                _images = _imageRepo.GetAllImages();
             }
             else
             {
@@ -83,12 +80,22 @@ namespace ImagesViewerWeb.Controllers
 
                 string[] imgAsString = _picture.First().PictureContent.Split(' ');
                 byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();
-
-                string imageBase64Data = Convert.ToBase64String(imgBytes);
-                ViewBag.ImageData = imageBase64Data;
+                ViewBag.ImageData = imgBytes;
             }
 
             return PartialView("Home", _images);
+        }
+
+        private bool IsFormatValid(string format)
+        {
+            List<string> validFormats = new List<string> { "image/jpeg", "image/gif", "image/png", "image/jpg", "image/tiff" };
+
+            if (!validFormats.Contains(format.ToLower()))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

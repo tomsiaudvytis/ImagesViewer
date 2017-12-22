@@ -2,5 +2,5 @@
 
 <div id="imgDisplayer">
     <hr />
-    <img src="@String.Format("data:image/png;base64,{0}", @ViewBag.ImageData)" style="height:350px;width:500px;" />
+    <img src="@String.Format("data:image/png;base64,{0}", @Convert.ToBase64String(@ViewBag.ImageData))" style="height:350px;width:500px;" />
 </div>
