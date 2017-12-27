@@ -1,12 +1,9 @@
-﻿using DataAccess;
-using DataAccess.Models;
-using DataAccess.Repositories;
+﻿using DataAccess.Models;
 using System;
 using System.Collections.Generic;
-//using System.Drawing;
 using System.Web.Mvc;
-using ImagesConverter;
 using System.Linq;
+using log4net;
 
 namespace ImagesViewerWeb.Controllers
 {
@@ -25,6 +22,7 @@ namespace ImagesViewerWeb.Controllers
             }
             catch (Exception ex)
             {
+                _app.Logger.Debug("Shit happens ! I am in HomeController constructor" + ex.Message);
                 ModelState.AddModelError("", "Images load failed !" + ex.Message);
                 _images = new List<ImageModel>();
             }
@@ -62,6 +60,7 @@ namespace ImagesViewerWeb.Controllers
                 }
                 catch (Exception e)
                 {
+                    _app.Logger.Debug("Shit happens ! I am in HomeController Add()" + e.Message);
                     ModelState.AddModelError("", "Image adding failed !" + e.Message);
                 }
 
@@ -90,6 +89,7 @@ namespace ImagesViewerWeb.Controllers
             }
             catch (Exception ex)
             {
+                _app.Logger.Debug("Shit happens ! I am in HomeController Delete()" + ex.Message);
                 ModelState.AddModelError("", "Images load failed !" + ex.Message);
                 _images = new List<ImageModel>();
             }
