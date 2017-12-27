@@ -12,13 +12,22 @@ namespace ImagesViewerWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private IConvert _imageConverter = new CustomImageConverter();
-        private IImageRepository _imageRepo = new MsSQLImageRepository();
-        IEnumerable<ImageModel> _images = null;
+        private IEnumerable<ImageModel> _images = null;
+        private MvcApplication _app = null;
 
         public HomeController()
         {
-            _images = _imageRepo.GetAllImages();
+            _app = new MvcApplication();
+
+            try
+            {
+                _images = _app.ImageRepository.GetAllImages();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Images load failed !" + ex.Message);
+                _images = new List<ImageModel>();
+            }
         }
 
         public ActionResult Home()
@@ -40,14 +49,22 @@ namespace ImagesViewerWeb.Controllers
                     return View("Home", _images);
                 }
 
-                byte[] content = _imageConverter.FileBaseToBytes(image.File.InputStream);
+                byte[] content = _app.ImageConverter.FileBaseToBytes(image.File.InputStream);
 
                 image.PictureContent = string.Join(" ", content);
                 image.PictureID = Guid.NewGuid().ToString();
                 image.Size = (int)content.LongLength;
 
-                _imageRepo.UploadImage(image);
-                _images = _imageRepo.GetAllImages();
+                try
+                {
+                    _app.ImageRepository.UploadImage(image);
+                    _images = _app.ImageRepository.GetAllImages();
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "Image adding failed !" + e.Message);
+                }
+
             }
             else
             {
@@ -66,8 +83,16 @@ namespace ImagesViewerWeb.Controllers
 
         public ActionResult Delete(string ID)
         {
-            _imageRepo.DeleteImage(ID);
-            _images = _imageRepo.GetAllImages();
+            _app.ImageRepository.DeleteImage(ID);
+            try
+            {
+                _images = _app.ImageRepository.GetAllImages();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Images load failed !" + ex.Message);
+                _images = new List<ImageModel>();
+            }
 
             return View("Home", _images);
         }
@@ -76,7 +101,7 @@ namespace ImagesViewerWeb.Controllers
         {
             if (!string.IsNullOrEmpty(ID))
             {
-                IEnumerable<ImageModel> _picture = _imageRepo.GetImage(ID);
+                IEnumerable<ImageModel> _picture = _app.ImageRepository.GetImage(ID);
 
                 string[] imgAsString = _picture.First().PictureContent.Split(' ');
                 byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();
