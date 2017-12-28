@@ -11,17 +11,19 @@ using System.Windows.Forms;
 
 namespace ImagesViewerUI
 {
+    using ImageController.Controllers;
+
     public partial class ImgViewerForm : Form
     {
         private IEnumerable<ImageModel> _picture = new List<ImageModel>();
-        private IImageRepository _imageRepo = new MsSQLImageRepository();
-        private CustomImageConverter _converter = new CustomImageConverter();
+
+        private ImageController controller = new ImageController(new CustomImageConverter(), new MsSQLImageRepository());
 
         public ImgViewerForm()
         {
             InitializeComponent();
 
-            _picture = _imageRepo.GetAllImages();
+            _picture = controller.GetAllImages();
             dataGridPictures.DataSource = _picture;
             dataGridPictures.Columns[0].Visible = false;
             dataGridPictures.Columns[4].Visible = false;
@@ -37,7 +39,7 @@ namespace ImagesViewerUI
             {
                 Task taskSearch = Task.Factory.StartNew(() =>
                 {
-                    _picture = _imageRepo.SearchImages(txtBoxSearchName.Text);
+                    _picture = controller.SearchImages(txtBoxSearchName.Text);
                 });
 
                 var awaiter = taskSearch.GetAwaiter();
@@ -61,7 +63,7 @@ namespace ImagesViewerUI
             {
                 string imgPath = dialog.FileName;
 
-                byte[] imgToUploadInBytes = _converter.ImgToBytes(imgPath);
+                byte[] imgToUploadInBytes = controller.ImgToBytes(imgPath);
 
                 ImageModel imageToUpload = new ImageModel()
                 {
@@ -75,7 +77,7 @@ namespace ImagesViewerUI
 
                 Task task = Task.Factory.StartNew(() =>
                 {
-                    _imageRepo.UploadImage(imageToUpload);
+                    controller.UploadImage(imageToUpload);
                 });
 
                 var awaiter = task.GetAwaiter();
@@ -84,7 +86,7 @@ namespace ImagesViewerUI
                 {
                     MessageBox.Show(imageToUpload.PictureName + " Uploaded");
                     InitializeComponent();
-                    _picture = _imageRepo.GetAllImages();
+                    _picture = controller.GetAllImages();
                 });
 
             }
@@ -99,10 +101,10 @@ namespace ImagesViewerUI
 
                 Task task = Task.Factory.StartNew(() =>
                 {
-                    IEnumerable<ImageModel> _picture = _imageRepo.GetImage(pictureID);
+                    IEnumerable<ImageModel> _picture = controller.GetImage(pictureID);
                     string[] currentImgAsStringArr = _picture.First().PictureContent.Split(' ');
                     byte[] currentImbAsBytesArr = currentImgAsStringArr.Select(byte.Parse).ToArray();
-                    selectedImage = _converter.BytesToImage(currentImbAsBytesArr);
+                    selectedImage = controller.BytesToImage(currentImbAsBytesArr);
                 });
 
                 var awaiter = task.GetAwaiter();

@@ -214,6 +214,10 @@
       <Project>{7ce08875-77f5-4685-8dfd-b37e077d67d7}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImageController\ImageController.csproj">
+      <Project>{6f323660-0a57-41a5-9452-14e5b90b62c2}</Project>
+      <Name>ImageController</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImagesConverter\ImagesConverter.csproj">
       <Project>{1f66e1e6-cdab-4eed-adf5-51633a9dca45}</Project>
       <Name>ImagesConverter</Name>

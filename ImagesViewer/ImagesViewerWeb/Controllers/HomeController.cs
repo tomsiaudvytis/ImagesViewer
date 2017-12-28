@@ -18,7 +18,7 @@ namespace ImagesViewerWeb.Controllers
 
             try
             {
-                _images = _app.ImageRepository.GetAllImages();
+                _images = _app.imageController.GetAllImages();
             }
             catch (Exception ex)
             {
@@ -34,7 +34,6 @@ namespace ImagesViewerWeb.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Add(ImageModel image)
         {
             if (image.File != null && image.PictureName != null)
@@ -47,7 +46,7 @@ namespace ImagesViewerWeb.Controllers
                     return View("Home", _images);
                 }
 
-                byte[] content = _app.ImageConverter.FileBaseToBytes(image.File.InputStream);
+                byte[] content = _app.imageController.FileBaseToBytes(image.File.InputStream);
 
                 image.PictureContent = string.Join(" ", content);
                 image.PictureID = Guid.NewGuid().ToString();
@@ -55,8 +54,8 @@ namespace ImagesViewerWeb.Controllers
 
                 try
                 {
-                    _app.ImageRepository.UploadImage(image);
-                    _images = _app.ImageRepository.GetAllImages();
+                    _app.imageController.UploadImage(image);
+                    _images = _app.imageController.GetAllImages();
                 }
                 catch (Exception e)
                 {
@@ -82,10 +81,10 @@ namespace ImagesViewerWeb.Controllers
 
         public ActionResult Delete(string ID)
         {
-            _app.ImageRepository.DeleteImage(ID);
+            _app.imageController.DeleteImage(ID);
             try
             {
-                _images = _app.ImageRepository.GetAllImages();
+                _images = _app.imageController.GetAllImages();
             }
             catch (Exception ex)
             {
@@ -101,7 +100,7 @@ namespace ImagesViewerWeb.Controllers
         {
             if (!string.IsNullOrEmpty(ID))
             {
-                IEnumerable<ImageModel> _picture = _app.ImageRepository.GetImage(ID);
+                IEnumerable<ImageModel> _picture = _app.imageController.GetImage(ID);
 
                 string[] imgAsString = _picture.First().PictureContent.Split(' ');
                 byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();

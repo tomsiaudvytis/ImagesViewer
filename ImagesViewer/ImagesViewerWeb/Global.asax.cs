@@ -8,10 +8,11 @@ using System.Web.Routing;
 
 namespace ImagesViewerWeb
 {
+    using ImageController.Controllers;
+
     public class MvcApplication : System.Web.HttpApplication
     {
-        public IConvert ImageConverter = new CustomImageConverter();
-        public IImageRepository ImageRepository = new MsSQLImageRepository();
+        public ImageController imageController = new ImageController(new CustomImageConverter(), new MsSQLImageRepository());
         public ILog Logger = LogManager.GetLogger(typeof(Controller));
 
         protected void Application_Start()
