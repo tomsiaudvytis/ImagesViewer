@@ -8,21 +8,29 @@ using System.Web.Routing;
 
 namespace ImagesViewerWeb
 {
+    using DataAccess.Executors;
+    using DataAccess.Models;
     using ImageController.Controllers;
 
     public class MvcApplication : System.Web.HttpApplication
     {
-        public ImageController imageController = new ImageController(new CustomImageConverter(), new MsSQLImageRepository());
-        public ILog Logger = LogManager.GetLogger(typeof(Controller));
+        public ILog _logger;
+        public ImageController imageController;
+        private ISqlExecutor<ImageModel> _sqlExecutor;
 
         protected void Application_Start()
         {
+            _logger = LogManager.GetLogger(typeof(Controller));
+            this._sqlExecutor = new SqlExecutor();
+
+            this.imageController = new ImageController(new CustomImageConverter(this._logger), new MsSQLImageRepository(this._logger, this._sqlExecutor), this._logger);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Logger.Debug("Application started");
+            _logger.Debug("Application started");
         }
     }
 }

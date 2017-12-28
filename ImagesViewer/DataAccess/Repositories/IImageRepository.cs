@@ -11,7 +11,7 @@ namespace DataAccess.Repositories
 
         IEnumerable<ImageModel> GetAllImages();
 
-        IEnumerable<ImageModel> GetImage(string imageID);
+        ImageModel GetImage(string imageID);
 
         void DeleteImage(string imageID);
     }

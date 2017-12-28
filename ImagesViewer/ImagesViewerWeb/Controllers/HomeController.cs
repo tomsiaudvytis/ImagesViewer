@@ -22,7 +22,7 @@ namespace ImagesViewerWeb.Controllers
             }
             catch (Exception ex)
             {
-                _app.Logger.Debug("Shit happens ! I am in HomeController constructor" + ex.Message);
+                _app._logger.Debug("Shit happens ! I am in HomeController constructor" + ex.Message);
                 ModelState.AddModelError("", "Images load failed !" + ex.Message);
                 _images = new List<ImageModel>();
             }
@@ -59,7 +59,7 @@ namespace ImagesViewerWeb.Controllers
                 }
                 catch (Exception e)
                 {
-                    _app.Logger.Debug("Shit happens ! I am in HomeController Add()" + e.Message);
+                    _app._logger.Debug("Shit happens ! I am in HomeController Add()" + e.Message);
                     ModelState.AddModelError("", "Image adding failed !" + e.Message);
                 }
 
@@ -88,7 +88,7 @@ namespace ImagesViewerWeb.Controllers
             }
             catch (Exception ex)
             {
-                _app.Logger.Debug("Shit happens ! I am in HomeController Delete()" + ex.Message);
+                _app._logger.Debug("Shit happens ! I am in HomeController Delete()" + ex.Message);
                 ModelState.AddModelError("", "Images load failed !" + ex.Message);
                 _images = new List<ImageModel>();
             }
@@ -100,11 +100,11 @@ namespace ImagesViewerWeb.Controllers
         {
             if (!string.IsNullOrEmpty(ID))
             {
-                IEnumerable<ImageModel> _picture = _app.imageController.GetImage(ID);
+                //ImageModel _picture = _app.imageController.GetImage(ID);
 
-                string[] imgAsString = _picture.First().PictureContent.Split(' ');
-                byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();
-                ViewBag.ImageData = imgBytes;
+                //string[] imgAsString = _picture.PictureContent.Split(' ');
+                //byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();
+                //ViewBag.ImageData = imgBytes;
             }
 
             return PartialView("Home", _images);

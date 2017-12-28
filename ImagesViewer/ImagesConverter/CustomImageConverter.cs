@@ -1,10 +1,18 @@
-﻿using System.Drawing;
+﻿using log4net;
+using System.Drawing;
 using System.IO;
 
 namespace ImagesConverter
 {
     public class CustomImageConverter : IConvert
     {
+        private readonly ILog _logger;
+
+        public CustomImageConverter(ILog Logger)
+        {
+            this._logger = Logger;
+        }
+
         public Image BytesToImage(byte[] bytes)
         {
             MemoryStream ms = new MemoryStream(bytes);
