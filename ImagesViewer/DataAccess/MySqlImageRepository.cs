@@ -17,7 +17,7 @@ namespace DataAccess
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ImageModel> GetImage(string imageID)
+        public ImageModel GetImage(string imageID)
         {
             throw new NotImplementedException();
         }
