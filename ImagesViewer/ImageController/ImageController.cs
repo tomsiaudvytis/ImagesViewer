@@ -88,14 +88,6 @@ namespace ImageController.Controllers
             return this._converter.BytesToImage(currentImbAsBytesArr);
         }
 
-        public byte[] ImageAsByteArr(string ID)
-        {
-            var imageFromDb = _imageRepo.GetImage(ID);
-
-            string[] currentImgAsStringArr = imageFromDb.PictureContent.Split(' ');
-            return currentImgAsStringArr.Select(byte.Parse).ToArray();
-        }
-
         public IEnumerable<ImageModel> SearchImages(string text)
         {
             return this._imageRepo.SearchImages(text);

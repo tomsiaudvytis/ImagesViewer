@@ -8,6 +8,7 @@
     using log4net;
     using NUnit.Framework;
     using System;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class MsSQLImageRepositoryTests
@@ -16,7 +17,7 @@
         public void GetAllImages_LogsWhenExceptionIsThrown()
         {
             ILog logger = A.Fake<ILog>();
-            ISqlExecutor<ImageModel> executor = A.Fake<ISqlExecutor<ImageModel>>();
+            ISqlExecutor <ImageModel> executor = A.Fake<ISqlExecutor<ImageModel>>();
             A.CallTo(() => executor.GetAllImages(A<string>.Ignored)).Throws(new Exception("Fake error"));
 
             IImageRepository repo = new MsSQLImageRepository(logger, executor);

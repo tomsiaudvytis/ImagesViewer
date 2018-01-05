@@ -18,15 +18,13 @@ namespace ImagesViewerWeb
         public ImageController imageController;
         private ISqlExecutor<ImageModel> _sqlExecutor;
 
-        public MvcApplication()
+        protected void Application_Start()
         {
             _logger = LogManager.GetLogger(typeof(Controller));
             this._sqlExecutor = new SqlExecutor();
-            this.imageController = new ImageController(new CustomImageConverter(this._logger), new MsSQLImageRepository(this._logger, this._sqlExecutor), this._logger);
-        }
 
-        protected void Application_Start()
-        {
+            this.imageController = new ImageController(new CustomImageConverter(this._logger), new MsSQLImageRepository(this._logger, this._sqlExecutor), this._logger);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

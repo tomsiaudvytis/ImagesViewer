@@ -100,8 +100,11 @@ namespace ImagesViewerWeb.Controllers
         {
             if (!string.IsNullOrEmpty(ID))
             {
-                byte[] imgBytes = this._app.imageController.ImageAsByteArr(ID);
-                ViewBag.ImageData = imgBytes;
+                //ImageModel _picture = _app.imageController.GetImage(ID);
+
+                //string[] imgAsString = _picture.PictureContent.Split(' ');
+                //byte[] imgBytes = imgAsString.Select(byte.Parse).ToArray();
+                //ViewBag.ImageData = imgBytes;
             }
 
             return PartialView("Home", _images);
